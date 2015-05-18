@@ -1,5 +1,6 @@
 package conceito.controle;
 
+import conceito.excecao.InfraExcecao;
 import conceito.excecao.NegocioExcecao;
 import conceito.jsf.JSFUtil;
 import conceito.negocio.ManterPessoaBO;
@@ -81,6 +82,13 @@ public class ManterPessoaMB {
             pesquisar();
         } catch (Exception e) {
             JSFUtil.adicionarMensagemErro(e.getMessage());
+        }
+    }
+
+    public Pessoa obterPorId(final Long id) {
+        final Pessoa p = negocio.obterPorId(id);
+        if(p != null){
+            formulario = p;
         }
     }
 

@@ -9,11 +9,13 @@
     <h:outputStylesheet library="css" name="formulario.css"/>
 </h:head>
 <h:body>
-    <h:form id = "formulario" prependId="true" >
+    <h:form id = "formulario">
         <p:messages globalOnly="false" id="mensagens" />
 
         <h:panelGrid columns = "2" style = "border: none;" cellspacing = "3" id = "edicao" title = "Edição" >
-            <p:outputLabel for = "txId"   value = "Código" />
+            <p:outputLabel for = "txId"   value = "Código">
+                <p:ajax event = "change" listener = "#{manterPessoaMB.o}"
+            </p:outputLabel>
             <p:outputLabel for = "txNome" value = "Nome" />
             <p:inputText id = "txId" style = "width: 80px;" value = "#{manterPessoaMB.formulario.id}"/>
             <p:inputText id = "txNome" style = "width: 400px;" value = "#{manterPessoaMB.formulario.nome}" validator = "#{manterPessoaMB.validaNome}" />

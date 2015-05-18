@@ -3,6 +3,7 @@ package conceito.negocio;
 
 import conceito.entidade.Pessoa;
 import conceito.excecao.InfraExcecao;
+import conceito.excecao.RegistroNaoEncontradoExcecao;
 import conceito.excecao.ValorNaoInformadoExcecao;
 import conceito.excecao.ValorNuloExcecao;
 import conceito.persistencia.PessoaDAO;
@@ -19,7 +20,7 @@ public class ManterPessoaBO {
     @Autowired
     private PessoaDAO dao;
 
-    public Pessoa obterPorId(final Long id) throws ValorNuloExcecao, InfraExcecao {
+    public Pessoa obterPorId(final Long id) throws ValorNuloExcecao, RegistroNaoEncontradoExcecao, InfraExcecao {
         if(id == null){
             throw new ValorNuloExcecao("Pessoa.id");
         }
