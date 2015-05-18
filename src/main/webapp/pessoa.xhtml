@@ -13,19 +13,19 @@
         <p:messages globalOnly="false" id="mensagens" />
 
         <h:panelGrid columns = "2" style = "border: none;" cellspacing = "3" id = "edicao" title = "Edição" >
-            <p:outputLabel for = "txId"   value = "Código">
-                <p:ajax event = "change" listener = "#{manterPessoaMB.o}"
-            </p:outputLabel>
+            <p:outputLabel for = "txId"   value = "Código"/>
             <p:outputLabel for = "txNome" value = "Nome" />
-            <p:inputText id = "txId" style = "width: 80px;" value = "#{manterPessoaMB.formulario.id}"/>
+            <p:inputText id = "txId" style = "width: 80px;" value = "#{manterPessoaMB.formulario.id}">
+                <p:ajax event = "change" listener = "#{manterPessoaMB.obterPorId()}" update = "edicao mensagens"/>
+            </p:inputText>
             <p:inputText id = "txNome" style = "width: 400px;" value = "#{manterPessoaMB.formulario.nome}" validator = "#{manterPessoaMB.validaNome}" />
         </h:panelGrid>
 
-        <p:commandButton value = "Salvar"    styleClass = "botaoPadrao" action = "#{manterPessoaMB.salvar}"    update    = "edicao listagem mensagens" />
-        <p:commandButton value = "Novo"      styleClass = "botaoPadrao" action = "#{manterPessoaMB.novo}"      immediate = "true" update=" @form" >
-            <f:ajax render = "edicao"/>
+        <p:commandButton value = "Salvar"    styleClass = "botaoPadrao" action = "#{manterPessoaMB.salvar}"    update = "edicao listagem mensagens" />
+        <p:commandButton value = "Novo"      styleClass = "botaoPadrao" action = "#{manterPessoaMB.novo}"      update = "edicao mensagens" process="@this" >
+            <p:resetInput target="formulario"/>
         </p:commandButton>
-        <p:commandButton value = "Pesquisar" styleClass = "botaoPadrao" action = "#{manterPessoaMB.pesquisar}" update   = "edicao listagem mensagens" />
+        <p:commandButton value = "Pesquisar" styleClass = "botaoPadrao" action = "#{manterPessoaMB.pesquisar}" update  = "edicao listagem mensagens" />
 
         <p:panel id = "listagem"  header = "Lista" style = "margin-top : 5px; width: 500px; " >
             <p:dataTable var = "pessoa" id = "tbPessoa" value = "#{manterPessoaMB.lista}" >

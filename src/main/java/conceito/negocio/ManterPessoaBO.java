@@ -24,28 +24,23 @@ public class ManterPessoaBO {
         if(id == null){
             throw new ValorNuloExcecao("Pessoa.id");
         }
-        return dao.obterPorId(id);
+        final Pessoa p = dao.obterPorId(id);
+        if(p == null){
+            throw new RegistroNaoEncontradoExcecao(id);
+        }else{
+            return p;
+        }
     }
 
-    public List<Pessoa> pesquisar(final Pessoa modelo) throws InfraExcecao, ValorNuloExcecao {
-
+    public List<Pessoa> pesquisar(final Pessoa modelo) throws ValorNuloExcecao,  InfraExcecao {
         if(modelo == null){
             throw new ValorNuloExcecao("Pessoa");
         }
-
-        if(modelo.getId() != null){
-           final Pessoa p = dao.obterPorId(modelo.getId()) ;
-           final List<Pessoa> l = new ArrayList<>();
-            l.add(p);
-            return l;
-        }else {
-            if (modelo.getNome() != null && !modelo.getNome().isEmpty()) {
-                return dao.listarPorNome(modelo.getNome());
-            } else {
-                return dao.listarTodos();
-            }
+        if (modelo.getNome() != null && !modelo.getNome().isEmpty()) {
+            return dao.listarPorNome(modelo.getNome());
+        } else {
+            return dao.listarTodos();
         }
-
     }
 
     @Transactional
