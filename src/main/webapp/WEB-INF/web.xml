@@ -1,0 +1,98 @@
+<?xml version  = "1.0" 
+      encoding = "UTF-8"?>
+<web-app xmlns:xsi 			= "http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns     			= "http://java.sun.com/xml/ns/javaee"
+		 xsi:schemaLocation	= "http://java.sun.com/xml/ns/javaee 
+							   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 id					= "WebApp_ID"
+		 version			= "2.5">
+	
+	<display-name>conceito</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/spring.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>locale</param-name>
+		<param-value>pt_BR</param-value>
+	</context-param>
+	
+	<context-param>
+		<description>Utilizar este parametro para que o jboss utilize a jsf-api que esta incluida na aplicacao e desconsidere o existente no servidor. Esta configuracao eh necessaria para o jsf 1.2, 2.x no jboss 4.2-ga</description>
+		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+<!--	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>bootstrap</param-value>
+	</context-param>-->
+	
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	
+	<!-- 
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+	-->
+	
+<!--	<context-param>
+		<param-name>facelets.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>-->
+	
+	<context-param>
+		<param-name>javax.faces.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<!-- 
+	<context-param>
+		<param-name>com.sun.faces.writeStateAtFormEnd</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	 -->
+	
+<!-- 	<context-param>
+    	<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    	<param-value>true</param-value>
+	</context-param> -->
+ 
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+		
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

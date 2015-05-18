@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns   = "http://www.w3.org/1999/xhtml"
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:p = "http://primefaces.org/ui">
+<h:head>
+    <title>Conceito</title>
+    <h:outputStylesheet library="css" name="formulario.css"/>
+</h:head>
+<h:body>
+    <h:form id = "formulario" prependId="true" >
+        <p:messages globalOnly="false" id="mensagens" />
+
+        <h:panelGrid columns = "2" style = "border: none;" cellspacing = "3" id = "edicao" title = "Edição" >
+            <p:outputLabel for = "txId"   value = "Código" />
+            <p:outputLabel for = "txNome" value = "Nome" />
+            <p:inputText id = "txId" style = "width: 80px;" value = "#{manterPessoaMB.formulario.id}"/>
+            <p:inputText id = "txNome" style = "width: 400px;" value = "#{manterPessoaMB.formulario.nome}" validator = "#{manterPessoaMB.validaNome}" />
+        </h:panelGrid>
+
+        <p:commandButton value = "Salvar"    styleClass = "botaoPadrao" action = "#{manterPessoaMB.salvar}"    update    = "edicao listagem mensagens" />
+        <p:commandButton value = "Novo"      styleClass = "botaoPadrao" action = "#{manterPessoaMB.novo}"      immediate = "true" update=" @form" >
+            <f:ajax render = "edicao"/>
+        </p:commandButton>
+        <p:commandButton value = "Pesquisar" styleClass = "botaoPadrao" action = "#{manterPessoaMB.pesquisar}" update   = "edicao listagem mensagens" />
+
+        <p:panel id = "listagem"  header = "Lista" style = "margin-top : 5px; width: 500px; " >
+            <p:dataTable var = "pessoa" id = "tbPessoa" value = "#{manterPessoaMB.lista}" >
+                <p:column headerText = "Id" width = "10"  >
+                    <h:outputText value = "#{pessoa.id}"/>
+                </p:column>
+                <p:column headerText = "Nome"  >
+                    <h:outputText value = "#{pessoa.nome}" />
+                </p:column>
+                <p:column  width = "10" >
+                   <p:commandLink  value = "Editar"  action = "#{manterPessoaMB.editar(pessoa)}"  update = "@form"/>
+                </p:column>
+                <p:column  width = "10">
+                    <p:commandLink value = "Remover" action = "#{manterPessoaMB.remover(pessoa)}" update = "@form" />
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+
+    </h:form>
+</h:body>
+</html>
