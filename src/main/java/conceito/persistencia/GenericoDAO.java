@@ -80,7 +80,7 @@ public abstract class GenericoDAO<T extends Entidade<?>>{
 
 	public List<T> listarTodos() throws InfraExcecao{
 		try{
-			final Query pesquisa = persistencia.createQuery(" from " + getClasse().getSimpleName());
+			final Query pesquisa = persistencia.createQuery(" from " + getClasse().getSimpleName() +  " o order by o.id" 	);
 
 			return pesquisa.getResultList();
 

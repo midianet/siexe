@@ -2,10 +2,7 @@ package conceito.negocio;
 
 
 import conceito.entidade.Pessoa;
-import conceito.excecao.InfraExcecao;
-import conceito.excecao.RegistroNaoEncontradoExcecao;
-import conceito.excecao.ValorNaoInformadoExcecao;
-import conceito.excecao.ValorNuloExcecao;
+import conceito.excecao.*;
 import conceito.persistencia.PessoaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +17,7 @@ public class ManterPessoaBO {
     @Autowired
     private PessoaDAO dao;
 
-    public Pessoa obterPorId(final Long id) throws ValorNuloExcecao, RegistroNaoEncontradoExcecao, InfraExcecao {
-        if(id == null){
-            throw new ValorNuloExcecao("Pessoa.id");
-        }
+    public Pessoa obterPorId(final Long id) throws RegistroNaoEncontradoExcecao, InfraExcecao {
         final Pessoa p = dao.obterPorId(id);
         if(p == null){
             throw new RegistroNaoEncontradoExcecao(id);
@@ -32,23 +26,22 @@ public class ManterPessoaBO {
         }
     }
 
-    public List<Pessoa> pesquisar(final Pessoa modelo) throws ValorNuloExcecao,  InfraExcecao {
-        if(modelo == null){
-            throw new ValorNuloExcecao("Pessoa");
-        }
+    public List<Pessoa> pesquisar(final Pessoa modelo) throws NenhumRegistroEncontradoExcecao, InfraExcecao {
+        List<Pessoa> retorno = null;
         if (modelo.getNome() != null && !modelo.getNome().isEmpty()) {
-            return dao.listarPorNome(modelo.getNome());
+            retorno = dao.listarPorNome(modelo.getNome());
+            if(retorno.isEmpty()){
+                throw new NenhumRegistroEncontradoExcecao();
+            }
         } else {
-            return dao.listarTodos();
+            retorno = dao.listarTodos();
         }
+        return retorno;
     }
 
     @Transactional
     public void salvar(final Pessoa pessoa) throws ValorNaoInformadoExcecao, InfraExcecao{
-        if(pessoa == null){
-            throw new ValorNuloExcecao("Pessoa");
-        }
-        if(pessoa.getNome() == null || pessoa.getNome().trim().isEmpty()){
+        if(pessoa.getNome() == null || pessoa.getNome().isEmpty()){
             throw new ValorNaoInformadoExcecao("Nome");
         }
         if(pessoa.getId() == null){
@@ -59,12 +52,9 @@ public class ManterPessoaBO {
     }
 
     @Transactional
-    public void remover(final Pessoa pessoa) throws InfraExcecao{
-        if(pessoa == null){
-            throw new ValorNuloExcecao("Pessoa");
-        }
-        if(pessoa.getId() == null){
-            throw new ValorNuloExcecao("Pessoa.id");
+    public void remover(final Pessoa pessoa) throws OperacaoNaoPermitidaExcecao,InfraExcecao{
+        if(pessoa.isDevedor()){
+            throw new OperacaoNaoPermitidaExcecao();
         }
         dao.excluir(pessoa);
     }

@@ -40,19 +40,13 @@ public class ManterPessoaMB {
     public Pessoa getFormulario() {
         return formulario;
     }
-//
-//    public void setFormulario(final Pessoa formulario) {
-//        this.formulario = formulario;
-//    }
 
     public void salvar() {
         try {
-            if(formulario.getId() == 0L){
-                formulario.setId(null);
-            }
             negocio.salvar(formulario);
             criar();
             pesquisar();
+            JSFUtil.adicionarMensagemInformacao("Pessoa salva com sucesso.");
         }catch(NegocioExcecao e){
             JSFUtil.adicionarMensagemAlterta(e.getMessage());
         }catch(Exception e){
@@ -64,13 +58,15 @@ public class ManterPessoaMB {
         try {
             formulario.setId(null);
             lista = negocio.pesquisar(formulario);
+        }catch(NegocioExcecao e){
+            JSFUtil.adicionarMensagemAlterta(e.getMessage());
         } catch (InfraExcecao e) {
            JSFUtil.adicionarMensagemErro(e.getMessage());
         }
     }
 
     public void editar(final Pessoa pessoa){
-        this.formulario = pessoa; //TODO:Clonar objeto
+        this.formulario = pessoa.clone();
     }
 
     public void remover(final Pessoa pessoa){
@@ -78,6 +74,7 @@ public class ManterPessoaMB {
             negocio.remover(pessoa);
             criar();
             pesquisar();
+            JSFUtil.adicionarMensagemInformacao("Pessoa removida com sucesso.");
         } catch (Exception e) {
             JSFUtil.adicionarMensagemErro(e.getMessage());
         }
@@ -95,13 +92,6 @@ public class ManterPessoaMB {
             JSFUtil.adicionarMensagemErro(e.getMessage());
         }
     }
-
-//    public void validaNome(FacesContext contexto, UIComponent componente , Object valor) throws ValidatorException{
-//        if(valor.toString().trim().isEmpty()){
-//            FacesMessage mensagem = new FacesMessage("Nome não informado!");
-//            throw new ValidatorException(mensagem);
-//        }
-//    }
 
     public List<Pessoa> getLista() {
         return lista;

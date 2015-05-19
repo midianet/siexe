@@ -11,23 +11,24 @@
 <h:body>
     <h:form id = "formulario">
         <p:messages globalOnly="false" id="mensagens" />
-
-        <h:panelGrid columns = "2" style = "border: none;" cellspacing = "3" id = "edicao" title = "Edição" >
-            <p:outputLabel for = "txId"   value = "Código"/>
-            <p:outputLabel for = "txNome" value = "Nome" />
-            <p:inputText id = "txId" style = "width: 80px;" value = "#{manterPessoaMB.formulario.id}">
-                <p:ajax event = "change" listener = "#{manterPessoaMB.obterPorId()}" update = "edicao mensagens"/>
-            </p:inputText>
-            <p:inputText id = "txNome" style = "width: 400px;" value = "#{manterPessoaMB.formulario.nome}" validator = "#{manterPessoaMB.validaNome}" />
-        </h:panelGrid>
-
-        <p:commandButton value = "Salvar"    styleClass = "botaoPadrao" action = "#{manterPessoaMB.salvar}"    update = "edicao listagem mensagens" />
-        <p:commandButton value = "Novo"      styleClass = "botaoPadrao" action = "#{manterPessoaMB.novo}"      update = "edicao mensagens" process="@this" >
-            <p:resetInput target="formulario"/>
-        </p:commandButton>
-        <p:commandButton value = "Pesquisar" styleClass = "botaoPadrao" action = "#{manterPessoaMB.pesquisar}" update  = "edicao listagem mensagens" />
-
-        <p:panel id = "listagem"  header = "Lista" style = "margin-top : 5px; width: 500px; " >
+        <p:fieldset style="width:512px; margin:2px;padding:2px;">
+            <h:panelGrid columns = "2" style = "border: none;" cellspacing = "3" id = "edicao" title = "Edição" >
+                <p:outputLabel for = "txId"   value = "Código"/>
+                <p:outputLabel for = "txNome" value = "Nome" />
+                <p:inputText id = "txId" style = "width: 80px;" value = "#{manterPessoaMB.formulario.id}" converter="vazioParaNuloConversor">
+                    <p:ajax event = "change" listener = "#{manterPessoaMB.obterPorId()}" update = "edicao mensagens"/>
+                </p:inputText>
+                <p:inputText id = "txNome" style = "width: 400px;" value = "#{manterPessoaMB.formulario.nome}"/>
+            </h:panelGrid>
+        </p:fieldset>
+        <p:fieldset style="width:512px;marging:2px;padding:2px; ">
+            <p:commandButton value = "Salvar"  styleClass = "botaoPadrao" action = "#{manterPessoaMB.salvar}"      update = "edicao listagem mensagens" />
+            <p:commandButton value = "Novo"    styleClass = "botaoPadrao" action = "#{manterPessoaMB.criar}"       update = "@form" process="@this" >
+                <p:resetInput target="formulario"/>
+            </p:commandButton>
+            <p:commandButton value = "Pesquisar" styleClass = "botaoPadrao" action = "#{manterPessoaMB.pesquisar}" update  = "edicao listagem mensagens" />
+        </p:fieldset>
+        <p:panel id = "listagem"  header = "Lista" style = "margin-top : 5px; width: 512px; margin:2px;padding:2px; ">
             <p:dataTable var = "pessoa" id = "tbPessoa" value = "#{manterPessoaMB.lista}" >
                 <p:column headerText = "Id" width = "10"  >
                     <h:outputText value = "#{pessoa.id}"/>
@@ -36,14 +37,17 @@
                     <h:outputText value = "#{pessoa.nome}" />
                 </p:column>
                 <p:column  width = "10" >
-                   <p:commandLink  value = "Editar"  action = "#{manterPessoaMB.editar(pessoa)}"  update = "@form"/>
+                    <p:commandLink update="@form" action = "#{manterPessoaMB.editar(pessoa)}">
+                        <h:graphicImage styleClass="botaoEditar"/>
+                    </p:commandLink>
                 </p:column>
                 <p:column  width = "10">
-                    <p:commandLink value = "Remover" action = "#{manterPessoaMB.remover(pessoa)}" update = "@form" />
+                    <p:commandLink action = "#{manterPessoaMB.remover(pessoa)}" update = "@form">
+                        <h:graphicImage styleClass="botaoExcluir"/>
+                    </p:commandLink>
                 </p:column>
             </p:dataTable>
         </p:panel>
-
     </h:form>
 </h:body>
 </html>

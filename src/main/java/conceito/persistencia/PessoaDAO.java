@@ -14,7 +14,7 @@ public class PessoaDAO extends GenericoDAO<Pessoa> {
 
     public List<Pessoa> listarPorNome(final String nome) throws InfraExcecao {
         try {
-            final Query pesquisa = persistencia.createQuery("Select p from Pessoa p where p.nome like :parametro");
+            final Query pesquisa = persistencia.createQuery("Select p from Pessoa p where p.nome like :parametro order by p.nome");
             pesquisa.setParameter("parametro","%"+nome+"%");
             return pesquisa.getResultList();
         } catch (final Exception e) {
