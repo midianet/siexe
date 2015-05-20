@@ -41,6 +41,7 @@ public class Pessoa extends Entidade<Long> implements Cloneable {
         this.devedor = flag;
     }
 
+    @SuppressWarnings("CloneDoesntCallSuperClone")
     public Pessoa clone() {
         final Pessoa p = new Pessoa();
         p.setId(this.getId());

@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
  * JSFUtil
  * Classe que representa utilidades básicas de JSF (Web).
  *
- * @category JSF.
- *
  * @author Marcos Fernando Costa.
  */
 public abstract class JSFUtil {

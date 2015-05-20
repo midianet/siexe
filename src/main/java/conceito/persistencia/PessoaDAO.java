@@ -10,8 +10,9 @@ import java.util.List;
 
 @Repository
 public class PessoaDAO extends GenericoDAO<Pessoa> {
-    private Logger log = Logger.getLogger(getClass().getName());
+    private final Logger log = Logger.getLogger(getClass().getName());
 
+    @SuppressWarnings("unchecked")
     public List<Pessoa> listarPorNome(final String nome) throws InfraExcecao {
         try {
             final Query pesquisa = persistencia.createQuery("Select p from Pessoa p where p.nome like :parametro order by p.nome");

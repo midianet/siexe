@@ -4,8 +4,6 @@ package conceito.excecao;
 /**
  * CampoNaoInformadoExcecao
  * Classe que representa a Excecao genérica para um campo que esteja com o valor vazio ou nulo.
- * 
- * @category Excecao
  *
  * @see NegocioExcecao
  *

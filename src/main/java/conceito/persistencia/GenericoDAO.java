@@ -17,26 +17,28 @@ public abstract class GenericoDAO<T extends Entidade<?>>{
 	
 	@PersistenceContext
 	protected EntityManager persistencia;
-    private Logger log = Logger.getLogger(getClass().getName());
+    private final Logger log = Logger.getLogger(getClass().getName());
 
 	@SuppressWarnings("unchecked")
 	protected Class<T> getClasse(){
 		return ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 	}
 	
-	public void incluir(final T entidade) throws InfraExcecao{
+	public T incluir(final T entidade) throws InfraExcecao{
 		try{
 			persistencia.persist(entidade);
+			return entidade;
 		}catch(final Exception e){
             log.error(e);
 			throw new InfraExcecao(e);
 		}
 	}
 	
-	public void alterar(final T entidade) throws InfraExcecao{
+	public T alterar(final T entidade) throws InfraExcecao{
 		try{
-			persistencia.merge(entidade);
+			final T alterado = persistencia.merge(entidade);
 			persistencia.flush();
+			return alterado;
 		}catch(final Exception e){
             log.error(e);
 			throw new InfraExcecao(e);
@@ -78,6 +80,7 @@ public abstract class GenericoDAO<T extends Entidade<?>>{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> listarTodos() throws InfraExcecao{
 		try{
 			final Query pesquisa = persistencia.createQuery(" from " + getClasse().getSimpleName() +  " o order by o.id" 	);

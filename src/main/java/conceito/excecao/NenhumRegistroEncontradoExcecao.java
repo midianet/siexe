@@ -3,8 +3,6 @@ package conceito.excecao;
 /**
  * RegistroNaoEncontradoExcecao
  * Classe que representa a Excecao genérica para pesquisas que não retornam nada.
- * 
- * @category Excecao
  *
  * @see NegocioExcecao
  *
@@ -16,10 +14,9 @@ public class NenhumRegistroEncontradoExcecao extends NegocioExcecao{
 
 	/**
 	 *
-	 * @param chave  Nome da chave pesquisada.
 	 */
 	public NenhumRegistroEncontradoExcecao(){
-	    super("MSG003");
+	    super("MSG004");
 	}
 	
 }

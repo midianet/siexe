@@ -3,8 +3,6 @@ package conceito.excecao;
 /**
  * CampoInvalidoExcecao
  * Classe que representa a Excecao genérica para a campos com valores inválidos.
- * 
- * @category Excecao
  *
  * @see NegocioExcecao
  *
@@ -16,14 +14,14 @@ public class CampoInvalidoExcecao extends NegocioExcecao{
 	
 	/**
 	 * Construtor padrão da Exceção
-	 * 
+	 *
 	 * @param campo Nome do campo com valor inválido.
 	 *
-	 */	
+	 */
 	public CampoInvalidoExcecao(final String campo){
 	    super("MSG002",campo);
 	}
-	
+
 	/**
 	 * 
 	 * @param campo  Nome do campo com valor inválido.
