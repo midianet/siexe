@@ -1,3 +1,5 @@
+package conceito.unitario;
+
 import conceito.entidade.Pessoa;
 import conceito.excecao.*;
 import conceito.negocio.ManterPessoaBO;
@@ -9,7 +11,6 @@ import java.util.ArrayList;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ManterPessoaTest {
@@ -19,7 +20,7 @@ public class ManterPessoaTest {
     private ManterPessoaBO negocio = null;
 
     @Before
-    public void construtor() {//throws ParseException {
+    public void construtor() {
         daoMock = createMock(PessoaDAO.class);
         negocio = new ManterPessoaBO(daoMock);
         pessoa  = new Pessoa();
@@ -59,8 +60,11 @@ public class ManterPessoaTest {
         pessoa.setNome("FJASFJALFAFAFFDAJFLADFJAFJASLFJSALFJSALFJSDALKFJ;AFJALFJALFJLFJDALSDFJLSAKFJALSKFJSAKFAFJALFALKFALKFJAKLFJAKLFJALFJKLASFJDLKSAFJALKFJLAKSFJKLAFJKALFJKLADFJKLASFJLKASJFFDASKLFKSALDFJAKSFJ");
         try{
             negocio.salvar(pessoa);
-        }catch(ValorNaoInformadoExcecao e){
+        }catch(ValorNaoInformadoExcecao e) {
             fail(e.getMessage());
+        }catch(CampoInvalidoExcecao e){
+            assertEquals(e.getMessage(), "O valor do campo Nome esta inválido, deverá ter no mínimo 10 e no máximo 80 caracteres.");
+            throw e;
         }catch(InfraExcecao e){
             fail();
         }
@@ -71,13 +75,64 @@ public class ManterPessoaTest {
         pessoa.setDevedor(true);
         try {
             negocio.remover(pessoa);
+        }catch(OperacaoNaoPermitidaExcecao e){
+            assertEquals(e.getMessage(), "Operação não permitida, não e possível excluir um cliente com débitos.");
+            throw e;
         }catch(InfraExcecao e){
             fail(e.getMessage());
         }
     }
 
+    @Test
+    public void testarFB1(){
+        try {
+            expect(daoMock.listarTodos()).andReturn(new ArrayList<Pessoa>()).once();
+            replay(daoMock);
+            pessoa.setNome(null);
+            negocio.pesquisar(pessoa);
+            verify(daoMock);
+        }catch(NenhumRegistroEncontradoExcecao e){
+            fail(e.getMessage());
+        }catch(InfraExcecao e){
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testarFB2(){
+        try {
+            expect(daoMock.incluir(pessoa)).andReturn(pessoa).once();
+            pessoa.setId(null);
+            replay(daoMock);
+            negocio.salvar(pessoa);
+            verify(daoMock);
+        }catch(ValorNaoInformadoExcecao e){
+            fail(e.getMessage());
+        }catch (CampoInvalidoExcecao e) {
+            fail(e.getMessage());
+        }catch(InfraExcecao e){
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testarFB3(){
+        try {
+            expect(daoMock.alterar(pessoa)).andReturn(pessoa).once();
+            replay(daoMock);
+            negocio.salvar(pessoa);
+            verify(daoMock);
+        }catch(ValorNaoInformadoExcecao e){
+            fail(e.getMessage());
+        }catch (CampoInvalidoExcecao e) {
+            fail(e.getMessage());
+        }catch(InfraExcecao e){
+            fail();
+        }
+    }
+
     @Test(expected = RegistroNaoEncontradoExcecao.class)
-    public void testarFB2() throws RegistroNaoEncontradoExcecao {
+    public void testarFE01() throws RegistroNaoEncontradoExcecao {
         try {
             expect(daoMock.obterPorId(18L)).andReturn(null).once();
             replay(daoMock);
@@ -98,55 +153,6 @@ public class ManterPessoaTest {
             verify(daoMock);
         }catch(InfraExcecao e){
             fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void testarFB1(){
-        try {
-            expect(daoMock.listarTodos()).andReturn(new ArrayList<Pessoa>()).once();
-            replay(daoMock);
-            pessoa.setNome(null);
-            negocio.pesquisar(pessoa);
-            verify(daoMock);
-        }catch(NenhumRegistroEncontradoExcecao e){
-            fail(e.getMessage());
-        }catch(InfraExcecao e){
-            fail();
-        }
-    }
-
-
-    @Test
-    public void testarFB3(){
-        try {
-            expect(daoMock.incluir(pessoa)).andReturn(pessoa).once();
-            pessoa.setId(null);
-            replay(daoMock);
-            negocio.salvar(pessoa);
-            verify(daoMock);
-        }catch(ValorNaoInformadoExcecao e){
-            fail(e.getMessage());
-        }catch (CampoInvalidoExcecao e) {
-            fail(e.getMessage());
-        }catch(InfraExcecao e){
-            fail();
-        }
-    }
-
-    @Test
-    public void testarFB4(){
-        try {
-            expect(daoMock.alterar(pessoa)).andReturn(pessoa).once();
-            replay(daoMock);
-            negocio.salvar(pessoa);
-            verify(daoMock);
-        }catch(ValorNaoInformadoExcecao e){
-            fail(e.getMessage());
-        }catch (CampoInvalidoExcecao e) {
-            fail(e.getMessage());
-        }catch(InfraExcecao e){
-            fail();
         }
     }
 

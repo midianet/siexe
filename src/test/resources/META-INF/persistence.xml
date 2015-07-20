@@ -6,13 +6,14 @@
 			 xsi:schemaLocation	= "http://java.sun.com/xml/ns/persistence
 								   http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" >
 
-	<persistence-unit name = "conceitoPU" transaction-type = "RESOURCE_LOCAL">
+	<persistence-unit name = "conceitoTestePU" transaction-type = "RESOURCE_LOCAL">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>conceito.entidade.Pessoa</class>
 
 		<properties>
 			<property name = "hibernate.dialect"					value = "org.hibernate.dialect.PostgreSQL82Dialect" />
-			<property name = "hibernate.hbm2ddl.auto"				value = "update" /> <!--validate update create-drop -->
+			<property name = "hibernate.hbm2ddl.auto"				value = "create" /> <!--validate update create-drop -->
 			<property name = "hibernate.format_sql"				 	value = "true"/>
 			<property name = "hibernate.show_sql" 					value = "true"/>
 			<property name = "hibernate.connection.driver_class"	value = "org.postgresql.Driver" />

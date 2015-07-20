@@ -62,7 +62,7 @@ public class ManterPessoaBO {
     @Transactional
     public void remover(final Pessoa pessoa) throws OperacaoNaoPermitidaExcecao,InfraExcecao{
         if(pessoa.isDevedor()){
-            throw new OperacaoNaoPermitidaExcecao(" não e possível excluir uma pessoa com débitos");
+            throw new OperacaoNaoPermitidaExcecao("não e possível excluir um cliente com débitos");
         }
         dao.excluir(pessoa);
     }

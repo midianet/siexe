@@ -42,7 +42,7 @@ public class ManterPessoaMB {
             negocio.salvar(formulario);
             criar();
             pesquisar();
-            JSFUtil.adicionarMensagemInformacao("Pessoa salva com sucesso.");
+            JSFUtil.adicionarMensagemInformacao("Cliente salvo com sucesso.");
         }catch(NegocioExcecao e){
             JSFUtil.adicionarMensagemAlterta(e.getMessage());
         }catch(Exception e){
@@ -70,7 +70,7 @@ public class ManterPessoaMB {
             negocio.remover(pessoa);
             criar();
             pesquisar();
-            JSFUtil.adicionarMensagemInformacao("Pessoa removida com sucesso.");
+            JSFUtil.adicionarMensagemInformacao("Cliente removido com sucesso.");
         } catch (Exception e) {
             JSFUtil.adicionarMensagemErro(e.getMessage());
         }
