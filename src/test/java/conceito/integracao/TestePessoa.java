@@ -40,7 +40,7 @@ import static org.junit.Assert.*;
                          DirtiesContextTestExecutionListener.class})
 @TransactionConfiguration(transactionManager="txManager", defaultRollback= false)
 @Transactional
-public class PessoaTest {
+public class TestePessoa {
 
     @PersistenceContext
     protected EntityManager persistencia;

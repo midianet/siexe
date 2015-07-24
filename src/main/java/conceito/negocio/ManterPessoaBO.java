@@ -48,8 +48,11 @@ public class ManterPessoaBO {
         if(pessoa.getNome() == null || pessoa.getNome().isEmpty()){
             throw new ValorNaoInformadoExcecao("Nome");
         }
-        if(pessoa.getNome().length() < 10 || pessoa.getNome().length() > 80 ){
-            throw new CampoInvalidoExcecao("Nome","deverá ter no mínimo 10 e no máximo 80 caracteres");
+        if(pessoa.getNome().length() < 10){
+            throw new CampoInvalidoExcecao("Nome","deverá ter no mínimo 10 caracteres");
+        }
+        if(pessoa.getNome().length() > 80){
+            throw new CampoInvalidoExcecao("Nome","deverá ter no máximo 80 caracteres");
         }
         if(pessoa.getId() == null){
             dao.incluir(pessoa);
