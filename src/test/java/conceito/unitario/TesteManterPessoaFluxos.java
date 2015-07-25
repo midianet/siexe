@@ -4,12 +4,8 @@ import conceito.entidade.Pessoa;
 import conceito.excecao.*;
 import conceito.negocio.ManterPessoaBO;
 import conceito.persistencia.PessoaDAO;
-import cucumber.api.java.pt.Dado;
-import cucumber.api.java.pt.Entao;
-import cucumber.api.java.pt.Quando;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
 
 import static org.easymock.EasyMock.*;
