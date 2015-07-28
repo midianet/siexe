@@ -1,7 +1,7 @@
 # language:pt
 
 Funcionalidade: Manter Clientes
-  Ator: cadastrador.
+  Ator: Atendente.
   Deve manter o cadastro dos clientes.
 
   Cenario: Cliente com nome vazio

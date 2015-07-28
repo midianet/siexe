@@ -34,7 +34,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/spring-test.xml"})
+@ContextConfiguration(locations={"classpath:/spring-integracao-test.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
                          TransactionalTestExecutionListener.class,
                          DirtiesContextTestExecutionListener.class})
@@ -87,15 +87,6 @@ public class TestePessoa {
             fail(e.getMessage());
         }
     }
-
-//    @After
-//    public void limpar(){
-//        try {
-//            DatabaseOperation.DELETE_ALL.execute(conexao, dataSet);
-//        }catch(Exception e){
-//            fail(e.getMessage());
-//        }
-//    }
 
     @Test
     public void incluir() throws InfraExcecao {

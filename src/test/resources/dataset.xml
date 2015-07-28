@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset reset_sequences="hibernate_sequence"  >
-    <tb_pessoa pess_id="10" pess_nome="Pessoa Teste10"  pess_devedor="false"/>
+    <tb_pessoa pess_id="10" pess_nome="Pessoa Teste10 Sammys "  pess_devedor="false"/>
     <tb_pessoa pess_id="11" pess_nome="Pessoa Teste11" pess_devedor="false"/>
     <tb_pessoa pess_id="12" pess_nome="Pessoa Teste12" pess_devedor="false"/>
 </dataset>

@@ -1,26 +1,37 @@
 package conceito.unitario;
 
 import conceito.entidade.Pessoa;
-import conceito.excecao.*;
+import conceito.excecao.InfraExcecao;
+import conceito.excecao.NenhumRegistroEncontradoExcecao;
+import conceito.excecao.RegistroNaoEncontradoExcecao;
 import conceito.negocio.ManterPessoaBO;
 import conceito.persistencia.PessoaDAO;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TesteManterPessoaFluxos {
 
     private Pessoa pessoa = null;
+
+    @Mock
     private PessoaDAO daoMock = null;
+
+    @InjectMocks
     private ManterPessoaBO negocio = null;
 
     @Before
     public void construtor() {
-        daoMock = createMock(PessoaDAO.class);
-        negocio = new ManterPessoaBO(daoMock);
+        MockitoAnnotations.initMocks(this);
         pessoa  = new Pessoa();
         pessoa.setId(1L);
         pessoa.setNome("Marcos Fernando Costa");
@@ -30,11 +41,9 @@ public class TesteManterPessoaFluxos {
     @Test
     public void testeListarTodos(){
         try {
-            expect(daoMock.listarTodos()).andReturn(new ArrayList<Pessoa>()).once();
-            replay(daoMock);
+            when(daoMock.listarTodos()).thenReturn(new ArrayList<Pessoa>());
             pessoa.setNome(null);
             negocio.pesquisar(pessoa);
-            verify(daoMock);
         }catch(Exception e){
             fail(e.getMessage());
         }
@@ -43,11 +52,9 @@ public class TesteManterPessoaFluxos {
     @Test
     public void testeIncluir(){
         try {
-            expect(daoMock.incluir(pessoa)).andReturn(pessoa).once();
+            when(daoMock.incluir(pessoa)).thenReturn(pessoa);
             pessoa.setId(null);
-            replay(daoMock);
             negocio.salvar(pessoa);
-            verify(daoMock);
         }catch(Exception e){
             fail(e.getMessage());
         }
@@ -56,10 +63,8 @@ public class TesteManterPessoaFluxos {
     @Test
     public void testeAlterar(){
         try {
-            expect(daoMock.alterar(pessoa)).andReturn(pessoa).once();
-            replay(daoMock);
+            when(daoMock.alterar(pessoa)).thenReturn(pessoa);
             negocio.salvar(pessoa);
-            verify(daoMock);
         }catch(Exception e) {
             fail(e.getMessage());
         }
@@ -68,10 +73,8 @@ public class TesteManterPessoaFluxos {
     @Test(expected = RegistroNaoEncontradoExcecao.class)
     public void testaObter() throws RegistroNaoEncontradoExcecao {
         try {
-            expect(daoMock.obterPorId(18L)).andReturn(null).once();
-            replay(daoMock);
+            when(daoMock.obterPorId(18L)).thenReturn(null);
             negocio.obterPorId(18L);
-            verify(daoMock);
         }catch(InfraExcecao e){
             fail();
         }
@@ -80,11 +83,9 @@ public class TesteManterPessoaFluxos {
     @Test(expected = NenhumRegistroEncontradoExcecao.class )
     public void testePesquisa() throws NenhumRegistroEncontradoExcecao{
         try {
-            expect(daoMock.listarPorNome("AAA")).andReturn(new ArrayList<Pessoa>()).once();
-            replay(daoMock);
+            when(daoMock.listarPorNome("AAA")).thenReturn(new ArrayList<Pessoa>());
             pessoa.setNome("AAA");
             negocio.pesquisar(pessoa);
-            verify(daoMock);
         }catch(InfraExcecao e){
             fail(e.getMessage());
         }
