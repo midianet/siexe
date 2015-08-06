@@ -16,7 +16,7 @@ public class ValorNaoInformadoExcecao extends NegocioExcecao{
 	/**
 	 * Construtor padrão da Excessão
 	 * 
-	 * @param campo Nome do campo n�o informado ou nulo.
+	 * @param campo Nome do campo não informado ou nulo.
 	 */
 	public ValorNaoInformadoExcecao(final String campo){
 	    super("MSG001",campo);
