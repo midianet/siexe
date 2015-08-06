@@ -1,4 +1,4 @@
-package conceito.integracao;
+package conceito.teste.integracao;
 
 import conceito.entidade.Pessoa;
 import conceito.excecao.InfraExcecao;
@@ -40,7 +40,7 @@ import static org.junit.Assert.*;
                          DirtiesContextTestExecutionListener.class})
 @TransactionConfiguration(transactionManager="txManager", defaultRollback= false)
 @Transactional
-public class TestePessoa {
+public class ITPessoa {
 
     @PersistenceContext
     protected EntityManager persistencia;

@@ -1,4 +1,4 @@
-package conceito.unitario;
+package conceito.teste.unitario;
 
 import conceito.entidade.Pessoa;
 import conceito.excecao.InfraExcecao;
