@@ -42,12 +42,12 @@
                 </p:column>
                 <p:column  width = "10" >
                     <p:commandLink update="@form" action = "#{manterPessoaMB.editar(pessoa)}">
-                        <h:graphicImage styleClass="botaoEditar"/>
+                        <img src ="resources/img/pencil.png" alt="" ></img>
                     </p:commandLink>
                 </p:column>
                 <p:column  width = "10">
                     <p:commandLink action = "#{manterPessoaMB.remover(pessoa)}" update = "@form">
-                        <h:graphicImage styleClass="botaoExcluir"/>
+                        <img src ="resources/img/delete.png" alt="" ></img>
                     </p:commandLink>
                 </p:column>
             </p:dataTable>

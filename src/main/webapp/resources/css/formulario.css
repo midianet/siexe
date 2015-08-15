@@ -11,9 +11,9 @@
 }
 
 .botaoEditar{
-    background-image:url('#{request.contextPath}/resources/img/pencil.png');width: 16px;height: 16px; border: none;
+    background-image:url('#{request.contextPath}/resources/img/pencil.png'); width: 16px;height: 16px; border: none;
 }
 
 .botaoExcluir{
-    background-image:url('#{request.contextPath}/resources/img/delete.png');width: 16px;height: 16px; border: none;
+    background-image:url('#{request.contextPath}/resources/img/delete.png'); width: 16px;height: 16px; border: none;
 }
